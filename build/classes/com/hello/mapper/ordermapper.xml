@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+    <mapper namespace="com.hello.mapper.OrderMapper">
+        <select id="list" resultType="OrderWay">
+               SELECT
+        	   base.order_way,
+        	   count(*) num
+        	   FROM
+        	   base ,
+        	   pro_list
+        	   GROUP BY
+        	   base.order_way      
+        </select>
+        
+        <select id="prov_list" resultType="OrderWay">
+                SELECT
+				base.order_way,
+				pro_list.prov_nm prov_name,
+				Count(*) num
+				FROM
+				base ,
+				pro_list
+				WHERE
+				base.order_way = #{order_way} AND
+				pro_list.prov_cd = base.province_id
+				GROUP BY
+				base.province_id      
+       </select>
+      
+    </mapper>
